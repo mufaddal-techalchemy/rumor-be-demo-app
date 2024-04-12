@@ -4,6 +4,14 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 import { grpcClientOptions } from './grpc-client.options';
 
+/**
+ * Initializes and starts the NestJS application along with gRPC microservices.
+ * - Creates the NestJS application instance.
+ * - Connects to gRPC microservices using the provided options.
+ * - Starts all connected gRPC microservices.
+ * - Starts listening for incoming requests on port 50051.
+ * - Logs the URL where the application is running.
+ */
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.connectMicroservice<MicroserviceOptions>(grpcClientOptions);

@@ -6,10 +6,18 @@ import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
+/**
+ * MockType represents a mock object with methods replaced by Jest mock functions.
+ * @template T - The type of the object being mocked.
+ */
 export type MockType<T> = {
     [P in keyof T]?: jest.Mock<object>;
 };
 
+/**
+ * repositoryMockFactory generates a mock repository object for testing purposes.
+ * @returns A mock repository object.
+ */
 export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(
     () => ({
         create: jest.fn((entity) => entity),

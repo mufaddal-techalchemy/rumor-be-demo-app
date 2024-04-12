@@ -10,13 +10,22 @@ import {
 import { Order } from './entities/order.entity';
 import { CreateOrderDto, CreateOrderDtoArray } from './dto/create-order.dto';
 
+/**
+ * Controller handling operations related to orders.
+ * - Requires Bearer authentication.
+ * - Tagged under 'Orders' for API documentation.
+ */
 @ApiBearerAuth()
 @ApiTags('Orders')
 @Controller('orders')
 export class OrderController {
     constructor(private readonly orderService: OrderService) { }
 
-    @Post()
+    /**
+     * Endpoint to create a new order.
+     * @param orderData Data required to create the order.
+     * @returns A success response with the created order, or an error message.
+     */
     @Post()
     @ApiOperation({ summary: 'Create Product' })
     @ApiResponse({
@@ -33,6 +42,10 @@ export class OrderController {
         }
     }
 
+    /**
+     * Endpoint to retrieve a list of all orders.
+     * @returns A success response with the list of orders, or an error message.
+     */
     @Get()
     @ApiOperation({ summary: 'List of all orders' })
     @ApiResponse({

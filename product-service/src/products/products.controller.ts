@@ -23,12 +23,21 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 
+/**
+ * ProductController handles HTTP requests related to products.
+ * It is decorated with authentication using @ApiBearerAuth and tagged with 'Products' using @ApiTags.
+ */
 @ApiBearerAuth()
 @ApiTags('Products')
 @Controller('products')
 export class ProductController {
     constructor(private readonly productsService: ProductService) { }
 
+    /**
+     * Creates a new product.
+     * @param createProductDto - The data to create the product.
+     * @returns A response indicating success or failure along with the created product data.
+     */
     @Post()
     @ApiOperation({ summary: 'Create Product' })
     @ApiResponse({
@@ -45,6 +54,11 @@ export class ProductController {
         }
     }
 
+    /**
+     * Retrieves a list of all products.
+     * @param ids - Optional parameter to filter products by IDs.
+     * @returns A response containing the list of products.
+     */
     @Get()
     @ApiOperation({ summary: 'List of all products' })
     @ApiResponse({
@@ -62,6 +76,11 @@ export class ProductController {
         }
     }
 
+    /**
+     * Retrieves details of a specific product.
+     * @param id - The ID of the product to retrieve.
+     * @returns A response containing the product details.
+     */
     @Get(':id')
     @ApiOperation({ summary: 'Product details' })
     @ApiResponse({
@@ -83,6 +102,12 @@ export class ProductController {
         }
     }
 
+    /**
+     * Updates details of a specific product.
+     * @param id - The ID of the product to update.
+     * @param updateProductDto - The data to update the product.
+     * @returns A response indicating success or failure along with the updated product data.
+     */
     @Patch(':id')
     @ApiOperation({ summary: 'Update product' })
     @ApiResponse({
@@ -106,6 +131,11 @@ export class ProductController {
         }
     }
 
+    /**
+     * Deletes a specific product.
+     * @param id - The ID of the product to delete.
+     * @returns A response indicating success or failure.
+     */
     @Delete(':id')
     @ApiOperation({ summary: 'Delete product' })
     @ApiResponse({

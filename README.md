@@ -14,7 +14,7 @@ Welcome to the Rumor Backend documentation! This service will allow you to place
 
 ### Prerequisites
 - Docker and Docker compose (Linux)
-- To run locally npm 9.4.x node 19.6.x, Postgress 14 or 15 
+- To run locally npm 9.4.x node 19.6.x, Postgres 14 or 15 
 
 ### Installation
 #### Step 1:

@@ -1,6 +1,9 @@
 import { Transport } from '@nestjs/microservices';
 import * as path from 'path';
 
+/**
+ * Options for gRPC client configuration.
+ */
 export const grpcClientOptions = {
     transport: Transport.GRPC,
     options: {

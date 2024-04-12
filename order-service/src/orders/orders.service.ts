@@ -1,14 +1,13 @@
-import { join } from 'path';
-import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as protoLoader from '@grpc/proto-loader';
-import { Client, ClientGrpc, Transport } from '@nestjs/microservices';
 import { Order } from './entities/order.entity';
 import { OrderDetails } from './entities/orderDetails.entity';
 import { AxiosClient } from 'src/axios/axiosClient';
 
+/**
+ * Service responsible for managing orders.
+ */
 @Injectable()
 export class OrderService extends AxiosClient {
     private productProto: any;
@@ -23,41 +22,13 @@ export class OrderService extends AxiosClient {
     ) {
         super()
         this.axiosClient = new AxiosClient();
-        // this.packageDefinition = protoLoader.loadSync(join(__dirname, '../../../grpc-service/dist/product/product.proto'));
-        // this.productProto = grpc.loadPackageDefinition(this.packageDefinition);
-        // this.productStub = new this.productProto.Products('0.0.0.0:50051', grpc.credentials.createInsecure());
     }
 
-    // @Client({
-    //     transport: Transport.GRPC,
-    //     options: {
-    //         package: 'product',
-    //         protoPath: path.join(
-    //             __dirname,
-    //             '../../../grpc-service/src/proto/product.proto',
-    //         ),
-    //     },
-    // })
-    // private readonly client: ClientGrpc;
-
-    // private grpcService;
-
-    // onModuleInit() {
-    //     this.grpcService = this.client.getService('GrpcServices');
-    // }
-
-    async processOrder(productId: number) {
-        return new Promise((resolve, reject) => {
-            this.productStub.findOne({ id: productId }, (err, recipe) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(recipe);
-                }
-            });
-        });
-    }
-
+    /**
+     * Places an order with the provided data.
+     * @param orderData - The data of the order to be placed.
+     * @returns A promise resolving with the created order.
+     */
     async placeOrder(orderData): Promise<Order> {
         console.log('orderData', orderData);
 
@@ -89,6 +60,10 @@ export class OrderService extends AxiosClient {
         return await this.orderDetailsRepository.save(orderDetailsEntities);
     }
 
+    /**
+     * Retrieves a list of all orders with product details.
+     * @returns A promise resolving with the list of orders.
+     */
     async listOrders(): Promise<Order[]> {
         const orders = await this.orderRepository.find({
             relations: ['orderDetails'],
