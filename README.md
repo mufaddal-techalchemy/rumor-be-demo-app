@@ -76,3 +76,6 @@ $ http://localhost:8080/order-service
 ```bash
 $ http://localhost:8080/product-service
 ```
+
+#### Note
+We have fulfilled the requirements by implementing Axios for interservice calls, and currently, our focus is on integrating GRPC server code, which is a work in progress. 
